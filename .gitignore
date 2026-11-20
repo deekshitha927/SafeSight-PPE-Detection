@@ -1,0 +1,25 @@
+# report build artifacts
+reports/*.pdf
+
+# pretrained base checkpoints (auto-downloaded by ultralytics, not project output)
+/yolov8n.pt
+/yolov8s.pt
+/yolo26n.pt
+
+# local tooling, not part of the project
+.claude/
+
+__pycache__/
+*.pyc
+.venv/
+venv/
+.DS_Store
+
+# raw training run folders — best.pt is promoted to models/, the rest is regenerable
+runs/
+
+# generated YOLO datasets — rebuild with voc_to_yolo.py and crop_for_ppe.py
+datasets/person_det/
+datasets/ppe_det/
+
+PROJECT_EXPLAINED.pdf

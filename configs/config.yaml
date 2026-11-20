@@ -1,0 +1,65 @@
+# Central config — paths, class lists, and thresholds referenced by every script.
+
+paths:
+  raw_images: datasets/images
+  raw_labels: datasets/labels
+  classes_file: datasets/classes.txt
+  split_map: configs/split_map.json
+  person_dataset: datasets/person_det
+  ppe_dataset: datasets/ppe_det
+  person_weights: models/person_det/best.pt
+  ppe_weights: models/ppe_det/best.pt
+  outputs: outputs
+  reports: reports
+
+split:
+  ratios: [0.8, 0.1, 0.1]
+  seed: 0
+
+person_classes:
+  - person
+
+# Classes present with too few (or zero) instances in the raw dataset are
+# dropped here rather than trained on — see PROJECT_STEPS.md "data audit".
+ppe_classes:
+  - hard-hat
+  - gloves
+  - boots
+  - vest
+  - ppe-suit
+
+dropped_classes:
+  - mask            # 8 instances — too few to learn or evaluate
+  - glasses         # 0 instances in dataset
+  - ear-protector   # 0 instances in dataset
+  - safety-harness  # 0 instances in dataset
+
+cropping:
+  pad_frac: 0.08          # padding added around each person box before cropping
+  min_crop_px: 32         # skip person crops smaller than this on either side
+  min_retained_area: 0.4  # drop a PPE box if less than this fraction survives clipping
+
+training:
+  person:
+    model: yolov8s.pt
+    imgsz: 640
+    epochs: 150
+    batch: 16
+    patience: 0   # disable early stopping — v1 (yolov8n) stopped at epoch 1, likely premature
+  ppe:
+    model: yolov8s.pt
+    imgsz: 512
+    epochs: 200
+    batch: 16
+    patience: 0   # disable early stopping — same treatment as person v2
+
+inference:
+  person_conf: 0.25
+  ppe_conf: 0.2
+  colors:
+    person: [255, 255, 255]
+    hard-hat: [0, 165, 255]
+    gloves: [0, 255, 0]
+    boots: [255, 0, 0]
+    vest: [0, 255, 255]
+    ppe-suit: [255, 0, 255]

@@ -1,0 +1,6 @@
+path: C:/Users/Lenovo/Downloads/SafeSight-PPE-Detection/SafeSight-PPE-Detection/datasets/person_det
+train: images/train
+val: images/val
+test: images/test
+names:
+  0: person

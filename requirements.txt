@@ -1,0 +1,9 @@
+ultralytics==8.4.24
+torch==2.10.0
+opencv-python>=4.12,<5
+numpy
+PyYAML
+pandas
+matplotlib
+fpdf2
+tqdm
